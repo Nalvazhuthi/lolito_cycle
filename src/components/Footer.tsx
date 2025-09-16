@@ -1,4 +1,5 @@
 import { FacebookIcon, InstagramIcon, WhatsappSmallIcon } from '@/assets/svg/exportSvg';
+import Link from 'next/link';
 import React from 'react';
 
 const Footer = () => {
@@ -27,10 +28,10 @@ const Footer = () => {
         <div>
           <h3 className="text-lg font-semibold mb-3">Quick Links</h3>
           <ul className="space-y-2 text-sm text-gray-300">
-            <li><a href="/" className="hover:text-white transition">Home</a></li>
-            <li><a href="/shop" className="hover:text-white transition">Shop</a></li>
-            <li><a href="/top-speed-cycle" className="hover:text-white transition">Top Speed Cycle</a></li>
-            <li><a href="/azpire-cycle" className="hover:text-white transition">Azpire Cycle</a></li>
+            <li><Link href="/" className="hover:text-white transition">Home</Link></li>
+            <li><Link href="/shop" className="hover:text-white transition">Shop</Link></li>
+            <li><Link href="/top-speed-cycle" className="hover:text-white transition">Top Speed Cycle</Link></li>
+            <li><Link href="/azpire-cycle" className="hover:text-white transition">Azpire Cycle</Link></li>
           </ul>
         </div>
 
@@ -48,17 +49,17 @@ const Footer = () => {
         <div>
           <h3 className="text-lg font-semibold mb-3">Follow Us</h3>
           <div className="flex space-x-4">
-            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="icon hover:text-blue-500">
+            <Link href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="icon hover:text-blue-500">
               <FacebookIcon />
-            </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="icon hover:text-pink-400">
+            </Link>
+            <Link href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="icon hover:text-pink-400">
               <InstagramIcon />
-            </a>
+            </Link>
 
-            <a href="/" onClick={handleClick}
+            <Link href="/" onClick={handleClick}
               target="_blank" rel="noopener noreferrer" className="icon hover:text-green-400">
               <WhatsappSmallIcon />
-            </a>
+            </Link>
           </div>
         </div>
 
