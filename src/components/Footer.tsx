@@ -52,7 +52,7 @@ const Footer = () => {
             <Link href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="icon hover:text-blue-500">
               <FacebookIcon />
             </Link>
-            <Link href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="icon hover:text-pink-400">
+            <Link href="https://www.instagram.com/lolito_cycle/" target="_blank" rel="noopener noreferrer" className="icon hover:text-pink-400">
               <InstagramIcon />
             </Link>
 

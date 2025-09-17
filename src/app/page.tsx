@@ -14,9 +14,17 @@ import Slider from '@/components/slider';
 const Home = () => {
   const { isCartOpen, searchOpen } = useUIStore()
   const LandingSliderData = [
-    { image: landingImage1, title: "Top Speed Cycle", description: "The Top Speed Cycle is designed for speed lovers and urban commuters. Featuring a lightweight frame, precision gears, and premium brakes to elevate your ride." },
-    { image: landingImage2, title: "Azpire", description: "The Top Speed Cycle is designed for speed lovers and urban commuters. Featuring a lightweight frame, precision gears, and premium brakes to elevate your ride." }
-  ]
+    {
+      image: landingImage1,
+      title: "Top Speed Cycle",
+      description: "The Top Speed Cycle is designed for speed lovers and urban commuters. Featuring a lightweight frame, precision gears, and premium brakes to elevate your ride."
+    },
+    {
+      image: landingImage2,
+      title: "Azpire",
+      description: "The Azpire combines elegant design with cutting-edge technology for the modern cyclist. Featuring an integrated digital display, automatic gear shifting, and a sleek, minimalist frame that turns heads on any terrain."
+    }
+  ]; 
   return (
     <div className="landing-page relative w-full min-h-screen overflow-x-hidden pt-[60px] pb-0">
 
@@ -34,7 +42,7 @@ const Home = () => {
 
       {/* Footer */}
       <Footer />
-      F
+
     </div>
   );
 };
