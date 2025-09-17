@@ -3,7 +3,8 @@
 import React from 'react';
 import Image from 'next/image';
 import { useProductStore } from '@/store/useProductStore';
-import { Product } from './shop';
+import { Product } from '@/data/products';
+
 
 export interface CardProps {
     product: Product

@@ -24,9 +24,11 @@ html,
 body {
   width: 100%;
   height: 100%;
+  user-select: none;
 }
 
 .icon {
+  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -56,4 +58,71 @@ body {
       color: red;
     }
   }
+}
+.search {
+  position: relative;
+}
+
+.search-field {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: -10px;
+  z-index: -1;
+  width: 0;
+  opacity: 0;
+  visibility: hidden; /* Initially hidden */
+  transition:
+    width 0.3s ease,
+    opacity 0.3s ease,
+    visibility 0s 0.3s; /* Add transition */
+}
+
+.search-field.open {
+  width: 200px; /* Or whatever width you prefer */
+  opacity: 1;
+  visibility: visible;
+  transition:
+    width 0.3s ease,
+    opacity 0.3s ease,
+    visibility 0s 0s; /* Reset visibility timing */
+}
+
+.search-field.close {
+  width: 0;
+  opacity: 0;
+  visibility: hidden; /* Ensure it’s hidden after closing */
+  transition:
+    width 0.3s ease,
+    opacity 0.3s ease,
+    visibility 0s 0.3s; /* Delay visibility reset */
+}
+
+.landing-image {
+  transition: all 0.7s ease-in-out;
+  overflow: hidden; /* Ensure the hidden content doesn’t show when collapsed */
+}
+
+.landing-image.close {
+  opacity: 0;
+  max-height: 0;
+}
+
+.landing-image.open {
+  opacity: 1;
+  max-height: 65vh; /* Adjust to match your original height, or use a larger value if you need more flexibility */
+}
+
+.landing-image img {
+  transition: opacity 0.7s ease-in-out;
+}
+
+/* Optional: Add a smooth transition to the text overlay */
+.landing-image .absolute {
+  opacity: 1;
+  transition: opacity 0.7s ease-in-out;
+}
+
+.landing-image.close .absolute {
+  opacity: 0;
 }
