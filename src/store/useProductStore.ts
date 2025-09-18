@@ -1,5 +1,7 @@
 import { Product } from '@/data/products';  // Assuming you have a Product type defined
 import { create } from 'zustand';
+import { toast } from 'react-toastify'; // Import toast from react-toastify
+import 'react-toastify/dist/ReactToastify.css'; // Import CSS for toast styling
 
 type ProductStore = {
   cartItems: Product[];
@@ -8,12 +10,11 @@ type ProductStore = {
   addToCart: (product: Product) => void;
   removeFromCart: (id: number) => void;
   clearCart: () => void;
-  updateCartQuantity: (id: number, quantity: number) => void; // New function for updating quantity
+  updateCartQuantity: (id: number, quantity: number) => void;
 };
 
-// Helper to get cart from localStorage safely
 const getCartFromLocalStorage = (): Product[] => {
-  if (typeof window === 'undefined') return []; // SSR safety
+  if (typeof window === 'undefined') return [];
   try {
     const storedCart = localStorage.getItem('cartItems');
     return storedCart ? JSON.parse(storedCart) : [];
@@ -25,16 +26,16 @@ const getCartFromLocalStorage = (): Product[] => {
 
 export const useProductStore = create<ProductStore>((set, get) => ({
   cartItems: getCartFromLocalStorage(),
-  searchValue: "",
+  searchValue: '',
 
+  
   // Update search value
   setSearchValue: (searchValue) => set({ searchValue }),
 
   // Add product to cart
   addToCart: (product) => {
     const existing = get().cartItems.find((item) => item.id === product.id);
-    
-    // If product already in cart, increase quantity
+
     if (existing) {
       set((state) => {
         const updatedCart = state.cartItems.map((item) =>
@@ -44,13 +45,18 @@ export const useProductStore = create<ProductStore>((set, get) => ({
         return { cartItems: updatedCart };
       });
     } else {
-      // If product not in cart, add it
       set((state) => {
         const updatedCart = [...state.cartItems, { ...product, quantity: 1 }];
         localStorage.setItem('cartItems', JSON.stringify(updatedCart)); // Persist to localStorage
         return { cartItems: updatedCart };
       });
     }
+
+    // Show toast notification when an item is added to the cart
+    toast.success(`${product.name} has been added to the cart!`, {
+      position: "bottom-right",  // You can customize position
+      autoClose: 2000,  // Time in ms for the toast to disappear
+    });
   },
 
   // Remove product from cart
@@ -71,7 +77,6 @@ export const useProductStore = create<ProductStore>((set, get) => ({
   // Update quantity of a specific product in the cart
   updateCartQuantity: (id, quantity) => {
     set((state) => {
-      // Ensure the quantity is at least 1 (no negative quantities)
       const updatedCart = state.cartItems.map((item) =>
         item.id === id ? { ...item, quantity: Math.max(quantity, 1) } : item
       );

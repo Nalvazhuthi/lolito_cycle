@@ -1,23 +1,28 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import { useProductStore } from '@/store/useProductStore';
 import { Product } from '@/data/products';
 
-
 export interface CardProps {
-    product: Product
+    product: Product;
 }
-
 
 const Card = ({ product }: CardProps) => {
     const addToCart = useProductStore((state) => state.addToCart);
+    const [added, setAdded] = useState(false);
 
     const discountPercent = Math.round(
         ((product.originalPrice - product.price) / product.originalPrice) * 100
     );
     const isNew = (new Date().getTime() - new Date(product.uploadedAt).getTime()) / (1000 * 60 * 60 * 24) <= 2;
+
+    const handleAddToCart = () => {
+        addToCart(product);
+        setAdded(true);
+        setTimeout(() => setAdded(false), 2000); // Reset after 2 seconds
+    };
 
     return (
         <div className="bg-white border relative border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-300 rounded-xl overflow-hidden cursor-pointer flex flex-col justify-between p-5">
@@ -33,23 +38,21 @@ const Card = ({ product }: CardProps) => {
             </div>
 
             {/* Badges */}
-            {/* <div className="absolute w-full top-5 left-0 flex gap-1 justify-between"> */}
-            {isNew && <div className="absolute top-5 left-0 text-white text-[11px] font-semibold px-3 py-1 text-center min-w-[60px] rounded-tr-md rounded-br-md bg-black">
-                NEW!
-            </div>}
+            {isNew && (
+                <div className="absolute top-5 left-0 text-white text-[11px] font-semibold px-3 py-1 text-center min-w-[60px] rounded-tr-md rounded-br-md bg-black">
+                    NEW!
+                </div>
+            )}
             <div className="absolute top-5 right-0 bg-red-600 text-white text-[11px] font-semibold px-3 py-1 text-center min-w-[60px] rounded-tl-md rounded-bl-md">
                 -{discountPercent}%
             </div>
-            {/* </div> */}
 
             {/* Details */}
             <div className="flex flex-col gap-2 mt-4">
-                {/* Product Name */}
                 <h3 className="text-lg font-semibold text-gray-900 line-clamp-1">
                     {product.name}
                 </h3>
 
-                {/* Pricing */}
                 <div className="flex items-center gap-2 text-base font-medium text-gray-800">
                     <span className="text-red-500 line-through text-sm">
                         ₹{product.originalPrice.toLocaleString()}
@@ -59,17 +62,19 @@ const Card = ({ product }: CardProps) => {
                     </span>
                 </div>
 
-                {/* Rating */}
                 <div className="text-yellow-400 text-sm select-none">★★★★★</div>
 
-                {/* Add to Cart */}
                 <button
-                    onClick={() => addToCart(product)}
-                    className="mt-3 cursor-pointer bg-gray-800 hover:bg-gray-700 text-white text-sm font-medium py-2.5 px-5 rounded-md transition-colors duration-300 w-full shadow-sm hover:shadow-md"
+                    onClick={handleAddToCart}
+                    disabled={added}
+                    className={`mt-3 w-full py-2.5 px-5 rounded-md text-sm font-medium transition-colors duration-300 shadow-sm ${
+                        added
+                            ? 'bg-green-500 text-white cursor-default'
+                            : 'bg-gray-800 hover:bg-gray-700 text-white cursor-pointer'
+                    }`}
                 >
-                    Add to Cart
+                    {added ? '✓ Added!' : 'Add to Cart'}
                 </button>
-
             </div>
         </div>
     );

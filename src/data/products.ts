@@ -22,48 +22,48 @@ export interface Product {
 export const products: Product[] = [
     {
         id: 1,
-        name: 'Top Speed 26 Flash SS 1',
-        price: 7499,
-        originalPrice: 9399,
+        name: 'Top Speed 26 Flash SS',
+        price: 10499,
+        originalPrice: 12999, // Estimated original price
         image: cycle1,
         quantity: 1,
         uploadedAt: '2025-09-17',
-
     },
     {
         id: 2,
-        name: 'Top Speed 26 Flash SS 2',
-        price: 7999,
-        originalPrice: 9999,
+        name: 'Top Speed 26 Flash SS',
+        price: 10499,
+        originalPrice: 12999, // Estimated original price
         image: cycle2,
         quantity: 1,
         uploadedAt: '2025-09-17',
     },
     {
         id: 3,
-        name: 'Top Speed 26 Flash MS 1',
-        price: 8999,
-        originalPrice: 10999,
+        name: 'Top Speed 26 Flash MS',
+        price: 12999,
+        originalPrice: 15999, // Estimated original price
         image: cycle3,
         quantity: 1,
         uploadedAt: '2025-09-17',
     },
     {
         id: 4,
-        name: 'Top Speed 26 Tornado SS 1',
-        price: 10499,
-        originalPrice: 12499,
+        name: 'Top Speed 26 Tornado SS',
+        price: 8999,
+        originalPrice: 11999, // Estimated original price
         image: cycle4,
         quantity: 1,
         uploadedAt: '2025-09-17',
     },
     {
         id: 5,
-        name: 'Top Speed 26 Tornado SS 2',
-        price: 10999,
-        originalPrice: 12999,
+        name: 'Top Speed 26 Tornado SS',
+        price: 8999,
+        originalPrice: 11999, // Estimated original price
         image: cycle5,
         quantity: 1,
         uploadedAt: '2025-09-17',
     },
 ];
+

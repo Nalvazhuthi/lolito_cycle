@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import Regulardropdown from './regulardropdown';
 import Card from './card';
 import { products } from '@/data/products';
@@ -10,26 +10,34 @@ const Shop = () => {
   const [selected, setSelected] = useState('Sort by Date');
   const { searchValue } = useProductStore(); // Get searchValue from Zustand store
 
-  // 🔃 Apply sort based on dropdown selection
-  const sortedProducts = [...products].sort((a, b) => {
+  // 🔃 Apply sort based on dropdown selection and filter products
+  const sortedProducts = useMemo(() => {
+    const sorted = [...products];
     switch (selected) {
       case 'Sort by Name':
-        return a.name.localeCompare(b.name);
+        sorted.sort((a, b) => a.name.localeCompare(b.name));
+        break;
       case 'Sort by Price':
-        return a.price - b.price;
+        sorted.sort((a, b) => b.price - a.price); // High price to low price
+        break;
       case 'Sort by Date':
-        return new Date(b.uploadedAt).getTime() - new Date(a.uploadedAt).getTime(); // Most recent first
+        sorted.sort((a, b) => new Date(b.uploadedAt).getTime() - new Date(a.uploadedAt).getTime());
+        break;
       case 'Sort by Popularity':
-        return b.price - a.price; // Placeholder logic: more expensive = more "popular"
+        sorted.sort((a, b) => b.price - a.price); // Placeholder logic: more expensive = more "popular"
+        break;
       default:
-        return 0;
+        break;
     }
-  });
+    return sorted;
+  }, [selected]);
 
   // 🔍 Filter products based on search value (case insensitive)
-  const filteredProducts = sortedProducts.filter((product) =>
-    product.name.toLowerCase().includes(searchValue.toLowerCase())
-  );
+  const filteredProducts = useMemo(() => {
+    return sortedProducts.filter((product) =>
+      product.name.toLowerCase().includes(searchValue.toLowerCase())
+    );
+  }, [sortedProducts, searchValue]);
 
   return (
     <div className="shop-container px-4 sm:px-6 py-6">
